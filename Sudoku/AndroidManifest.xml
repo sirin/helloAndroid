@@ -31,6 +31,10 @@
             android:name="com.example.sudoku.Game"
             android:label="@string/game_title" >
         </activity>
+        <activity
+            android:name="com.example.sudoku.Prefs"
+            android:label="@string/settings_title" >
+        </activity>
     </application>
 
 </manifest>

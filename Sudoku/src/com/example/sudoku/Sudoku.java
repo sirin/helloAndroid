@@ -1,11 +1,15 @@
 package com.example.sudoku;
 
 import android.os.Bundle;
+import android.provider.ContactsContract.Presence;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -26,7 +30,24 @@ public class Sudoku extends Activity implements OnClickListener {
 		exitButton.setOnClickListener(this);
 		
 	}
-
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu, menu);
+		return true;
+	}
+	
+	public boolean onOptionsSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.settings:
+			startActivity(new Intent(this, Prefs.class));
+			return true;
+		}
+		return false;
+	}
+	
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.about_button:
@@ -38,6 +59,9 @@ public class Sudoku extends Activity implements OnClickListener {
 			break;
 		case R.id.exit_button:
 			finish();
+			break;
+		case R.id.continue_button:
+			startGame(Game.DIFFICULTY_CONTINUE);
 			break;
 		}
 	}
@@ -62,5 +86,17 @@ public class Sudoku extends Activity implements OnClickListener {
 		Intent intent = new Intent(Sudoku.this, Game.class);
 		intent.putExtra(Game.KEY_DIFFICULTY, i);
 		startActivity(intent);
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Music.play(this, R.raw.main);
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Music.stop(this);
 	}
 }

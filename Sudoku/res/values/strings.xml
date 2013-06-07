@@ -24,4 +24,11 @@
 	<string name="game_title">Game</string>
 	<string name="no_moves_label">No moves</string>
 	<string name="keypad_title">Keypad</string>
+	<string name="settings_label">Settings...</string>
+	<string name="settings_title">Sudoku settings</string>
+	<string name="settings_shortcut">s</string>
+	<string name="music_title">Music</string>
+	<string name="music_summary">Paly background music</string>
+	<string name="hints_title">Hints</string>
+	<string name="hints_summary">Show hints during play</string>
 </resources>

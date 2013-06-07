@@ -14,6 +14,8 @@ public class Game extends Activity {
 	public static final int DIFFICULTY_EASY = 0;
 	public static final int DIFFICULTY_MEDIUM = 1;
 	public static final int DIFFICULTY_HARD = 2;
+	public static final String PREF_PUZZLE = "puzzle";
+	protected static final int DIFFICULTY_CONTINUE = -1;
 	
 	private int puzzle[] = new int[9*9];
 	private PuzzleView puzzleView;
@@ -43,6 +45,8 @@ public class Game extends Activity {
 		puzzleView = new PuzzleView(this);
 		setContentView(puzzleView);
 		puzzleView.requestFocus();
+		
+		getIntent().putExtra(KEY_DIFFICULTY, DIFFICULTY_CONTINUE);
 	}
 
 	private int[] getPuzzle(int diff) {
@@ -53,6 +57,9 @@ public class Game extends Activity {
 			break;
 		case DIFFICULTY_MEDIUM:
 			puz = mediumPuzzle;
+			break;
+		case DIFFICULTY_CONTINUE:
+			puz = getPreferences(MODE_PRIVATE).getString(PREF_PUZZLE, easyPuzzle);
 			break;
 		case DIFFICULTY_EASY:
 		default:
@@ -181,5 +188,12 @@ public class Game extends Activity {
 			return "";
 		else
 			return String.valueOf(v);
+	}
+	
+	protected void onPause() {
+		super.onPause();
+		Log.d(TAG, "onPause");
+		Music.stop(this);
+		getPreferences(MODE_PRIVATE).edit().putString(PREF_PUZZLE, toPuzzleString(puzzle)).commit();
 	}
 }
