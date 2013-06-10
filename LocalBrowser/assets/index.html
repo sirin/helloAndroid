@@ -1,0 +1,22 @@
+<html>
+<head>
+<script language="JavaScript">
+	function callJS(arg) {
+		document.getelementById('replaceme').innerHTML = arg;
+	}
+</script>
+</head>
+<body>
+<h1>WebView</h1>
+<p>
+<a herf="#" onclick="window.alert('Alert from JavaScript')">
+	Display JavaScript alert</a>
+</p>
+<p>
+<a href="#" onclick="window.android.callAndroid('Hello from Browser')">
+	Call Android from JavaScript</a>
+</p>
+<p id="replaceme">
+</p>
+</body>
+</html>
